@@ -1,0 +1,14 @@
+{
+  "name": "grok-voice-unreal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Voice chat with Grok Voice 3 that drives Unreal Editor through Unreal MCP.",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}

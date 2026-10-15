@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grok Voice · Unreal</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="mark">GV</span>
+      <div>
+        <strong>Grok Voice 3</strong>
+        <span>Unreal Editor</span>
+      </div>
+    </div>
+    <div class="pills">
+      <span id="grok-pill" class="pill">Voice idle</span>
+      <span id="unreal-pill" class="pill">Editor offline</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="deck" aria-label="Session">
+      <div id="orb" class="orb idle" style="--level: 0">
+        <div class="orb-core"></div>
+      </div>
+      <p id="activity" class="activity" aria-live="polite">Connect the editor, then start talking.</p>
+      <div class="controls">
+        <button id="start" type="button" class="primary" disabled>Start</button>
+        <button id="mute" type="button" disabled>Mute</button>
+        <button id="stop" type="button" disabled>Stop</button>
+      </div>
+      <label class="gain">
+        <span>Playback</span>
+        <input id="volume" type="range" min="0" max="1" step="0.05" value="1">
+      </label>
+
+      <div class="card">
+        <p id="account" class="hint">Checking your xAI subscription…</p>
+      </div>
+
+      <form id="unreal-form" class="card">
+        <label for="unreal-url">Unreal MCP</label>
+        <div class="row">
+          <input id="unreal-url" type="url" value="http://127.0.0.1:8000/mcp" spellcheck="false">
+          <button id="connect" type="submit">Connect</button>
+        </div>
+        <p id="unreal-state" class="hint">MyProject2 needs the Unreal MCP and All Toolsets plugins, then an editor restart so the server can bind to port 8000.</p>
+        <label class="search-line">
+          <span>Find a tool</span>
+          <input id="tool-query" type="search" placeholder="light, actor, blueprint">
+        </label>
+        <ul id="tool-preview" class="tool-preview"></ul>
+      </form>
+
+      <fieldset class="card voice-card">
+        <legend>Voice</legend>
+        <div id="voices" class="chips"></div>
+        <label class="check">
+          <input id="reasoning" type="checkbox" checked>
+          Reason before acting
+        </label>
+      </fieldset>
+    </section>
+
+    <div class="stage">
+    <section class="echo-map" aria-label="Echo map">
+      <div class="conv-head">
+        <h1>What the pawn sees</h1>
+        <button id="clear-map" type="button">Clear map</button>
+      </div>
+      <p id="echo-caption" class="hint">Waiting for a map.</p>
+      <div class="echo-stage">
+        <canvas id="echo-view"></canvas>
+        <p id="echo-empty" class="echo-empty">No echo map yet. Ask the pawn to walk around.</p>
+      </div>
+      <ul class="echo-legend">
+        <li><i class="swatch solid"></i>Solid</li>
+        <li><i class="swatch floor"></i>Floor</li>
+        <li><i class="swatch wall"></i>Wall</li>
+        <li><i class="swatch pawn"></i>Pawn</li>
+      </ul>
+    </section>
+
+    <section class="conversation" aria-label="Conversation">
+      <div class="conv-head">
+        <h1>Talk to the editor</h1>
+        <button id="clear" type="button">Clear</button>
+      </div>
+      <div id="error" class="error" hidden></div>
+      <ol id="transcript" class="transcript" aria-live="polite"></ol>
+      <div id="examples" class="chips"></div>
+      <form id="composer" class="composer">
+        <input id="text" type="text" placeholder="Or type: add a warm point light above the origin" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+      <ol id="tools" class="tools"></ol>
+    </section>
+    </div>
+  </main>
+  <script src="/app.js"></script>
+  <script type="module" src="/echo-map.js"></script>
+</body>
+</html>
